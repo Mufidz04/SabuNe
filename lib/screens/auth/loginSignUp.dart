@@ -27,7 +27,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
             right: 0,
             left: 0,
             child: Container(
-              height: isSignupScreen ? 380 : 300,
+              height: 380,
               color: kSecondaryColor.withOpacity(.40),
               child: Align(
                 alignment: Alignment.topCenter,
@@ -47,7 +47,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
             top: 245,
             child: Container(
               padding: EdgeInsets.all(20),
-              height: isSignupScreen ? 350 : 100,
+              height: isSignupScreen ? 350 : 300,
               width: MediaQuery.of(context).size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
@@ -123,13 +123,14 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     ],
                   ),
                   if (isSignupScreen) buildSignUp(),
+                  if (!isSignupScreen) buildSignIn(),
                 ],
               ),
             ),
           ),
           //Button Submit
           Positioned(
-            top: isSignupScreen ? 535 : 300,
+            top: isSignupScreen ? 550 : 500,
             left: 0,
             right: 0,
             child: Center(
@@ -165,6 +166,42 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildSignIn() {
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      child: Column(
+        children: [
+          buildTextField(Icons.mail_outline, "tester@sabune.me", false, true),
+          buildTextField(
+              MaterialCommunityIcons.lock_outline, "**********", true, false),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Checkbox(
+                  value: isRememberMe,
+                  onChanged: (value) {
+                    setState(() {
+                      isRememberMe = !isRememberMe;
+                    });
+                  }),
+              Text(
+                'Remember Me',
+                style: TextStyle(fontSize: 12, color: ktextColor1),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Forget Password?',
+                  style: TextStyle(fontSize: 12, color: ktextColor1),
+                ),
+              ),
+            ],
           ),
         ],
       ),
